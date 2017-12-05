@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  pg:
+    image: postgres:10
+    ports:
+      - 5532:5432
+    environment:
+      POSTGRES_PASSWORD: deadface
+
+  api:
+    build:
+      context: node
+      args:
+        PORT: 3030
+    ports:
+      - 3030:3030
+    volumes:
+      - ../api:/usr/src/app/api
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
+      - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub
+      - ~/.ssh/known_hosts:/root/.ssh/known_hosts
